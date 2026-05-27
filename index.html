@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Compa'rrilla y Sazón | Restaurante en Bogotá</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      scroll-behavior:smooth;
+    }
+
+    body{
+      font-family:'Poppins',sans-serif;
+      background:#111;
+      color:white;
+      overflow-x:hidden;
+    }
+
+    a{
+      text-decoration:none;
+      color:inherit;
+    }
+
+    /* NAVBAR */
+
+    nav{
+      position:fixed;
+      width:100%;
+      top:0;
+      left:0;
+      z-index:1000;
+      backdrop-filter: blur(10px);
+      background:rgba(0,0,0,0.5);
+      border-bottom:1px solid rgba(255,255,255,0.08);
+    }
+
+    .nav-container{
+      width:90%;
+      max-width:1200px;
+      margin:auto;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:18px 0;
+    }
+
+    .logo{
+      font-size:1.5rem;
+      font-weight:800;
+      color:#ffb703;
+    }
+
+    .nav-links{
+      display:flex;
+      gap:25px;
+      align-items:center;
+    }
+
+    .nav-links a{
+      transition:0.3s;
+      color:#eee;
+      font-weight:500;
+    }
+
+    .nav-links a:hover{
+      color:#ffb703;
+    }
+
+    .btn{
+      background:#ffb703;
+      color:#111 !important;
+      padding:12px 22px;
+      border-radius:999px;
+      font-weight:700;
+      transition:0.3s;
+      display:inline-block;
+    }
+
+    .btn:hover{
+      transform:translateY(-2px);
+      background:#ffd166;
+    }
+
+    /* HERO */
+
+    .hero{
+      min-height:100vh;
+      background:
+      linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.75)),
+      url('https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=1600&auto=format&fit=crop');
+      background-size:cover;
+      background-position:center;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      padding:120px 20px 80px;
+    }
+
+    .hero-content{
+      max-width:900px;
+    }
+
+    .hero h1{
+      font-size:4rem;
+      line-height:1.1;
+      margin-bottom:20px;
+      font-weight:800;
+    }
+
+    .hero h1 span{
+      color:#ffb703;
+    }
+
+    .hero p{
+      font-size:1.2rem;
+      color:#ddd;
+      margin-bottom:35px;
+      line-height:1.7;
+    }
+
+    .hero-buttons{
+      display:flex;
+      gap:20px;
+      justify-content:center;
+      flex-wrap:wrap;
+    }
+
+    .secondary-btn{
+      border:2px solid #ffb703;
+      padding:12px 22px;
+      border-radius:999px;
+      color:#ffb703;
+      font-weight:700;
+      transition:0.3s;
+    }
+
+    .secondary-btn:hover{
+      background:#ffb703;
+      color:#111;
+    }
+
+    /* SECTIONS */
+
+    section{
+      padding:90px 20px;
+    }
+
+    .container{
+      width:90%;
+      max-width:1200px;
+      margin:auto;
+    }
+
+    .section-title{
+      text-align:center;
+      margin-bottom:60px;
+    }
+
+    .section-title h2{
+      font-size:2.7rem;
+      margin-bottom:10px;
+    }
+
+    .section-title p{
+      color:#bbb;
+    }
+
+    /* CARDS */
+
+    .cards{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+      gap:25px;
+    }
+
+    .card{
+      background:#1b1b1b;
+      padding:30px;
+      border-radius:24px;
+      transition:0.3s;
+      border:1px solid rgba(255,255,255,0.06);
+    }
+
+    .card:hover{
+      transform:translateY(-6px);
+      border-color:#ffb703;
+    }
+
+    .card h3{
+      margin:18px 0 12px;
+      color:#ffb703;
+    }
+
+    .card p{
+      color:#ccc;
+      line-height:1.7;
+    }
+
+    .emoji{
+      font-size:2.5rem;
+    }
+
+    /* MENU */
+
+    .menu-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+      gap:30px;
+    }
+
+    .menu-item{
+      position:relative;
+      overflow:hidden;
+      border-radius:24px;
+      min-height:380px;
+      display:flex;
+      align-items:flex-end;
+      padding:30px;
+      background-size:cover;
+      background-position:center;
+    }
+
+    .menu-item::before{
+      content:'';
+      position:absolute;
+      inset:0;
+      background:linear-gradient(to top, rgba(0,0,0,0.85), transparent);
+    }
+
+    .menu-content{
+      position:relative;
+      z-index:2;
+    }
+
+    .menu-content h3{
+      font-size:1.7rem;
+      margin-bottom:10px;
+    }
+
+    .menu-content p{
+      color:#ddd;
+      line-height:1.6;
+    }
+
+    /* REVIEWS */
+
+    .reviews{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+      gap:25px;
+    }
+
+    .review{
+      background:#181818;
+      padding:30px;
+      border-radius:22px;
+      border:1px solid rgba(255,255,255,0.05);
+    }
+
+    .stars{
+      color:#ffb703;
+      margin-bottom:15px;
+      font-size:1.1rem;
+    }
+
+    .review p{
+      color:#ddd;
+      line-height:1.8;
+      margin-bottom:18px;
+    }
+
+    .review h4{
+      color:#fff;
+    }
+
+    /* INFO */
+
+    .info-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+      gap:25px;
+    }
+
+    .info-box{
+      background:#1a1a1a;
+      padding:30px;
+      border-radius:22px;
+      text-align:center;
+    }
+
+    .info-box h3{
+      color:#ffb703;
+      margin:15px 0;
+    }
+
+    .info-box p{
+      color:#ddd;
+      line-height:1.7;
+    }
+
+    /* CTA */
+
+    .cta{
+      background:
+      linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
+      url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=1600&auto=format&fit=crop');
+      background-size:cover;
+      background-position:center;
+      text-align:center;
+      border-radius:30px;
+      padding:80px 30px;
+    }
+
+    .cta h2{
+      font-size:3rem;
+      margin-bottom:20px;
+    }
+
+    .cta p{
+      color:#ddd;
+      max-width:700px;
+      margin:auto auto 35px;
+      line-height:1.8;
+    }
+
+    footer{
+      padding:40px 20px;
+      text-align:center;
+      border-top:1px solid rgba(255,255,255,0.08);
+      color:#999;
+      margin-top:80px;
+    }
+
+    @media(max-width:768px){
+
+      .hero h1{
+        font-size:2.7rem;
+      }
+
+      .nav-links{
+        display:none;
+      }
+
+      .cta h2{
+        font-size:2.2rem;
+      }
+
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+
+  <nav>
+    <div class="nav-container">
+      <div class="logo">Compa'rrilla y Sazón</div>
+
+      <div class="nav-links">
+        <a href="#inicio">Inicio</a>
+        <a href="#especialidades">Especialidades</a>
+        <a href="#resenas">Reseñas</a>
+        <a href="#contacto">Contacto</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+
+  <section class="hero" id="inicio">
+
+    <div class="hero-content">
+
+      <h1>
+        El verdadero sabor de la
+        <span>parrilla colombiana</span>
+      </h1>
+
+      <p>
+        Disfruta una experiencia llena de sabor, buena música y excelente atención
+        en uno de los restaurantes mejor valorados del sector.
+        Mojarras, parrilladas, hamburguesas y platos preparados con auténtico sazón.
+      </p>
+
+      <div class="hero-buttons">
+        <a href="https://www.instagram.com/comparrillaysazon" target="_blank" class="btn">
+          Ver Instagram
+        </a>
+
+        <a href="https://www.google.com/maps/place/Compa'rrilla+y+Sazon/" target="_blank" class="secondary-btn">
+          Cómo llegar
+        </a>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- FEATURES -->
+
+  <section id="especialidades">
+
+    <div class="container">
+
+      <div class="section-title">
+        <h2>¿Por qué elegirnos?</h2>
+        <p>Calidad, sabor y una experiencia que querrás repetir.</p>
+      </div>
+
+      <div class="cards">
+
+        <div class="card">
+          <div class="emoji">🔥</div>
+          <h3>Parrilla Premium</h3>
+          <p>
+            Carnes y platos preparados al punto perfecto con ingredientes frescos
+            y productos de calidad.
+          </p>
+        </div>
+
+        <div class="card">
+          <div class="emoji">🎶</div>
+          <h3>Excelente Ambiente</h3>
+          <p>
+            Buena música, ambiente agradable y un espacio ideal para compartir
+            con amigos, pareja o familia.
+          </p>
+        </div>
+
+        <div class="card">
+          <div class="emoji">🚚</div>
+          <h3>Domicilios y Para Llevar</h3>
+          <p>
+            Disfruta tus platos favoritos donde quieras gracias a nuestro servicio
+            de entrega y pedidos para llevar.
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- MENU -->
+
+  <section>
+
+    <div class="container">
+
+      <div class="section-title">
+        <h2>Platos destacados</h2>
+        <p>Los favoritos de nuestros clientes.</p>
+      </div>
+
+      <div class="menu-grid">
+
+        <div class="menu-item"
+        style="background-image:url('https://images.unsplash.com/photo-1610057099431-d73a1c9d2f2f?q=80&w=1200&auto=format&fit=crop')">
+
+          <div class="menu-content">
+            <h3>Mojarra Compa'rrilla y Sazón</h3>
+            <p>
+              Un plato lleno de sabor y tradición acompañado con el auténtico toque de la casa.
+            </p>
+          </div>
+
+        </div>
+
+        <div class="menu-item"
+        style="background-image:url('https://images.unsplash.com/photo-1558030006-450675393462?q=80&w=1200&auto=format&fit=crop')">
+
+          <div class="menu-content">
+            <h3>Parrillada Pa' los Compadres</h3>
+            <p>
+              La combinación perfecta para compartir: carnes jugosas, papas y acompañamientos.
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- REVIEWS -->
+
+  <section id="resenas">
+
+    <div class="container">
+
+      <div class="section-title">
+        <h2>Lo que dicen nuestros clientes</h2>
+        <p>Más de 70 reseñas y una calificación de 4.6 estrellas.</p>
+      </div>
+
+      <div class="reviews">
+
+        <div class="review">
+          <div class="stars">★★★★★</div>
+
+          <p>
+            “Excelente servicio al cliente, y la comida ni se diga,
+            un excelente lugar para comer.”
+          </p>
+
+          <h4>— Santiago Fuquen</h4>
+        </div>
+
+        <div class="review">
+          <div class="stars">★★★★★</div>
+
+          <p>
+            “La comida deliciosa y en su punto,
+            excelente servicio y ambiente.”
+          </p>
+
+          <h4>— Timo Rojas Música</h4>
+        </div>
+
+        <div class="review">
+          <div class="stars">★★★★★</div>
+
+          <p>
+            “Buen servicio, comida súper rica.
+            Lo recomiendo.”
+          </p>
+
+          <h4>— Erika Ochoa</h4>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- INFO -->
+
+  <section id="contacto">
+
+    <div class="container">
+
+      <div class="section-title">
+        <h2>Información</h2>
+        <p>Visítanos o realiza tu pedido.</p>
+      </div>
+
+      <div class="info-grid">
+
+        <div class="info-box">
+          <div class="emoji">📍</div>
+          <h3>Ubicación</h3>
+          <p>
+            Cra. 36A #9-07 Este<br>
+            Bogotá, Colombia
+          </p>
+        </div>
+
+        <div class="info-box">
+          <div class="emoji">🕒</div>
+          <h3>Horario</h3>
+          <p>
+            Abierto todos los días<br>
+            Hasta las 10:00 PM
+          </p>
+        </div>
+
+        <div class="info-box">
+          <div class="emoji">📞</div>
+          <h3>Contacto</h3>
+          <p>
+            323 225 1006<br>
+            Instagram: @comparrillaysazon
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- CTA -->
+
+  <section>
+
+    <div class="container">
+
+      <div class="cta">
+
+        <h2>¿Listo para probar algo delicioso?</h2>
+
+        <p>
+          Ven y disfruta una experiencia llena de sabor,
+          buena atención y el auténtico toque de Compa'rrilla y Sazón.
+        </p>
+
+        <a href="https://wa.me/573232251006" class="btn" target="_blank">
+          Pedir por WhatsApp
+        </a>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <footer>
+    © 2026 Compa'rrilla y Sazón — Todos los derechos reservados.
+  </footer>
+
+</body>
+</html>
